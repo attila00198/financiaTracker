@@ -1,0 +1,153 @@
+<div class="container">
+    <!-- Balance -->
+    <div class="row mb-2">
+        <div class="col-md-4 mb-3">
+            <div class="card" style="min-height: 225px;">
+                <div class="card-body">
+                    <h5 class="card-title">Egyenleg</h5>
+                    <p><?= date('Y-m-d') ?></p>
+                    <h2 id="balance" class="card-text">0 Ft</h2>
+                    <button class="btn btn-danger" id="resetDatabase" onclick="resetDatabase()">Reset Database</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction List -->
+        <div class="col-md-8">
+            <div class="card" style="min-height: 225px;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title mb-0">Legutóbbi tranzakciók</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#newTransactionModal">
+                            Új tranzakció
+                        </button>
+                    </div>
+                    <ul id="transactionList" class="list-group list-group-flush">
+                        <!-- Transactions will be added here dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button
+                class="nav-link active"
+                id="home-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#home"
+                type="button"
+                role="tab"
+                aria-controls="home"
+                aria-selected="true">
+                Grafikon
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button
+                class="nav-link"
+                id="profile-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#profile"
+                type="button"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false">
+                Táblázat
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div
+            class="tab-pane active"
+            id="home"
+            role="tabpanel"
+            aria-labelledby="home-tab">
+            <!-- Chart -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Havi áttekintés</h5>
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div
+            class="tab-pane"
+            id="profile"
+            role="tabpanel"
+            aria-labelledby="profile-tab">
+            <!-- Table -->
+            <div class="d-flex justify-content-between mb-2">
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-primary" id="prev-month"><span> <- </span></button>
+                    <p class="m-0 p-2" id="current-month"></p>
+                    <button class="btn btn-primary" id="next-month"><span> -> </span></button>
+                </div>
+            </div>
+            <div class="table-responsive mb-2">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Összeg</th>
+                            <th scope="col">Leírás</th>
+                            <th scope="col">Dátum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Ide kerülnek az adatok -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Transaction Modal -->
+<div class="modal fade" id="newTransactionModal" tabindex="-1" aria-labelledby="newTransactionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newTransactionModalLabel">Új tranzakció hozzáadása</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="transactionForm">
+                    <div class="mb-3">
+                        <label class="form-label">Típus</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="type" id="income" value="income"
+                                    checked>
+                                <label class="form-check-label" for="income">Bevétel</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="type" id="expense"
+                                    value="expense">
+                                <label class="form-check-label" for="expense">Kiadás</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="number" class="form-control" id="amount" placeholder="Összeg" required>
+                        <label for="amount" class="form-label">Összeg</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="text" class="form-control" id="description" placeholder="Leírás" required>
+                        <label for="description" class="form-label">Leírás</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                <button type="button" class="btn btn-primary" id="saveTransaction">Mentés</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="./assets/js/transactions.js"></script>
