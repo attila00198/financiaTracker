@@ -53,7 +53,7 @@ header('Access-Control-Allow-Headers: Content-Type, application/json');
         if ($uri === '/') {
             require_once 'templates/dashboard.php';
         } else if ($uri === '/profile') {
-            echo '<h3 class="text-center mt-5">Not implemented yet</h3>';
+            require_once 'templates/profile.php';
         }
         ?>
     </main>
